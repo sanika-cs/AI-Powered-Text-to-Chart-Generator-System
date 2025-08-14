@@ -59,7 +59,7 @@ Both datasets enable Flan-T5 models to accurately interpret user queries, suppor
 **Output:**  
 - Bar chart with regions on x-axis  
 - Total sales on y-axis  
-- Filtered for products  in 2024  
+- Filtered for sales in 2024  
 
 ---
 
