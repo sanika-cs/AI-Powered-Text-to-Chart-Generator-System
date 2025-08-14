@@ -54,12 +54,12 @@ Both datasets enable Flan-T5 models to accurately interpret user queries, suppor
 ##  Example
 
 **Input:**  
-> "Show total sales by region for products starting with 'A' in 2024"
+> "Show total sales by region for products  in 2024"
 
 **Output:**  
 - Bar chart with regions on x-axis  
 - Total sales on y-axis  
-- Filtered for products starting with "A" in 2024  
+- Filtered for products  in 2024  
 
 ---
 
