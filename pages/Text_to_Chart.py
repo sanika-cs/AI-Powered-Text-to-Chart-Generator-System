@@ -1,5 +1,7 @@
 
 import streamlit as st
+st.set_page_config(page_title="Text2Chart Dashboard", layout="wide")
+
 from database import get_connection
 import pandas as pd
 from transformers import T5Tokenizer, T5ForConditionalGeneration
@@ -564,7 +566,7 @@ def create_chart(df, t5_output, filter_model=None, filter_tokenizer=None, chart_
 # -------------------------------
 # Streamlit UI (Multi-chart Dashboard)
 # -------------------------------
-st.set_page_config(page_title="Text2Chart Dashboard", layout="wide")
+
 
 # Load dataframe
 if "df" not in st.session_state:

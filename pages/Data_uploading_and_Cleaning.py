@@ -236,5 +236,5 @@ if uploaded_file:
         st.switch_page("pages/Text_to_Chart.py")
 
 else:
-    st.info(" Upload a CSV file to begin.")
+    st.info(" Upload a file to begin.")
 
