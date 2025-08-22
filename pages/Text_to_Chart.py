@@ -13,7 +13,9 @@ import plotly.graph_objects as go
 from audio_recorder_streamlit import audio_recorder
 from faster_whisper import WhisperModel
 import tempfile
-
+import os
+import gdown
+import zipfile
 # -------------------------------
 # Load Faster-Whisper once (cached)
 # -------------------------------
@@ -29,16 +31,33 @@ whisper_model = load_whisper_model()
 # # -------------------------------
 
 
+TEXT2CHART_DRIVE_ID = "1FtKctF1_0XGgYykBnveG_fm56aKjuwyi"
+FILTER_MODEL_DRIVE_ID = "1Zof2eSI5DUFxrXvCXqEaAGwD58sUHDRC"
+
+# Local paths to save downloaded models
+LOCAL_TEXT2CHART_PATH = "models/flan-t5-text2chart-tuned"
+LOCAL_FILTER_MODEL_PATH = "models/flan-t5-filter-tuned"
+
+def download_from_drive(folder_id, output_path):
+    """Download folder from Google Drive using gdown."""
+    if not os.path.exists(output_path):
+        os.makedirs(output_path, exist_ok=True)
+        # gdown can download a folder using "https://drive.google.com/uc?id=<folder_id>&export=download"
+        url = f"https://drive.google.com/uc?id={folder_id}"
+        gdown.download_folder(url, output=output_path, quiet=False)
+
 @st.cache_resource
 def load_model():
-    model = T5ForConditionalGeneration.from_pretrained(r"C:\Users\sanik\PycharmProjects\flant5-text2chart-tuned")
-    tokenizer = T5Tokenizer.from_pretrained(r"C:\Users\sanik\PycharmProjects\flant5-text2chart-tuned")
+    download_from_drive(TEXT2CHART_DRIVE_ID, LOCAL_TEXT2CHART_PATH)
+    model = T5ForConditionalGeneration.from_pretrained(LOCAL_TEXT2CHART_PATH)
+    tokenizer = T5Tokenizer.from_pretrained(LOCAL_TEXT2CHART_PATH)
     return model, tokenizer
 
 @st.cache_resource
 def load_filter_model():
-    model = T5ForConditionalGeneration.from_pretrained(r"C:\Users\sanik\PycharmProjects\flan-t5-filter-tuned_final")
-    tokenizer = T5Tokenizer.from_pretrained(r"C:\Users\sanik\PycharmProjects\flan-t5-filter-tuned_final")
+    download_from_drive(FILTER_MODEL_DRIVE_ID, LOCAL_FILTER_MODEL_PATH)
+    model = T5ForConditionalGeneration.from_pretrained(LOCAL_FILTER_MODEL_PATH)
+    tokenizer = T5Tokenizer.from_pretrained(LOCAL_FILTER_MODEL_PATH)
     return model, tokenizer
 
 # -------------------------------
